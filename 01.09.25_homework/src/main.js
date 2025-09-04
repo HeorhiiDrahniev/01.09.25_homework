@@ -23,7 +23,7 @@ const patchedTitle = {
   title: "Patched title",
 };
 
-// GET request
+// GET request function
 async function getPostRequest(id) {
   try {
     const post = await apiRequest(`${requestURLPosts}${id}`);
@@ -32,8 +32,8 @@ async function getPostRequest(id) {
     console.error("Ошибка запроса", error);
   }
 }
-getPostRequest(postIdString);
-// POST request
+
+// POST request function
 async function postRequest(post) {
   try {
     const newPost = await apiRequest(requestURLPosts, "POST", post);
@@ -42,9 +42,8 @@ async function postRequest(post) {
     console.error("Ошибка создания поста:", error);
   }
 }
-postRequest(postBody);
 
-// PUT request
+// PUT request function
 async function putRequest(id, post) {
   try {
     const replacedPost = await apiRequest(
@@ -57,9 +56,8 @@ async function putRequest(id, post) {
     console.error("Ошибка обновления поста:", error);
   }
 }
-putRequest(postIdString, updatedPostBody);
 
-// PATCH request
+// PATCH request function
 async function patchRequest(id, post) {
   try {
     const patchedPost = await apiRequest(
@@ -72,11 +70,10 @@ async function patchRequest(id, post) {
     console.error("Ошибка изменения поста:", error);
   }
 }
-patchRequest(postIdString, patchedTitle);
 
-// DELETE request
+// DELETE request function
 
-async function deletePostRequest(id) {
+async function deleteRequest(id) {
   try {
     const delatedPost = await apiRequest(`${requestURLPosts}${id}`, "DELETE");
     console.log("Пост удалён");
@@ -84,4 +81,10 @@ async function deletePostRequest(id) {
     console.error("Ошибка удаления поста:", error);
   }
 }
-deletePostRequest(postIdString);
+
+// Call all requests functions
+getPostRequest(postIdString);
+postRequest(postBody);
+putRequest(postIdString, updatedPostBody);
+patchRequest(postIdString, patchedTitle);
+deleteRequest(postIdString);
