@@ -72,7 +72,7 @@ async function patchRequest(id, post) {
     console.error("Ошибка изменения поста:", error);
   }
 }
-patchRequest(postIdString, patchRequest);
+patchRequest(postIdString, patchedTitle);
 
 // DELETE request
 
