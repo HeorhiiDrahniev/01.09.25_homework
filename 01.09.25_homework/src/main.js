@@ -24,28 +24,64 @@ const patchedTitle = {
 };
 
 // GET request
-apiRequest(`${requestURLPosts}${postIdString}`)
-  .then((post) => console.log(post.title))
-  .catch((err) => console.error("Ошибка запроса", err));
-
+async function getPostRequest(id) {
+  try {
+    const post = await apiRequest(`${requestURLPosts}${id}`);
+    console.log(post.title);
+  } catch (error) {
+    console.error("Ошибка запроса", error);
+  }
+}
+getPostRequest(postIdString);
 // POST request
-apiRequest(requestURLPosts, "POST", postBody)
-  .then((newPost) => console.log("Создан пост:", newPost.id))
-  .catch((err) => console.error("Ошибка создания поста:", err));
+async function postRequest(post) {
+  try {
+    const newPost = await apiRequest(requestURLPosts, "POST", post);
+    console.log("Создан пост:", newPost.id);
+  } catch (error) {
+    console.error("Ошибка создания поста:", error);
+  }
+}
+postRequest(postBody);
 
 // PUT request
-apiRequest(`${requestURLPosts}${postIdString}`, "PUT", updatedPostBody)
-  .then((updatedPost) =>
-    console.log("Полностью заменён пост:", updatedPost.title),
-  )
-  .catch((err) => console.error("Ошибка обновления поста:", err));
+async function putRequest(id, post) {
+  try {
+    const replacedPost = await apiRequest(
+      `${requestURLPosts}${id}`,
+      "PUT",
+      post,
+    );
+    console.log("Полностью заменён пост:", replacedPost.title);
+  } catch (error) {
+    console.error("Ошибка обновления поста:", error);
+  }
+}
+putRequest(postIdString, updatedPostBody);
 
 // PATCH request
-apiRequest(`${requestURLPosts}${postIdString}`, "PATCH", patchedTitle)
-  .then((updatedPost) => console.log("Обновлён пост:", updatedPost.title))
-  .catch((err) => console.error("Ошибка изменения поста:", err));
+async function patchRequest(id, post) {
+  try {
+    const patchedPost = await apiRequest(
+      `${requestURLPosts}${id}`,
+      "PATCH",
+      post,
+    );
+    console.log("Обновлён пост:", patchedPost.title);
+  } catch (error) {
+    console.error("Ошибка изменения поста:", error);
+  }
+}
+patchRequest(postIdString, patchRequest);
 
 // DELETE request
-apiRequest(`${requestURLPosts}${postIdString}`, "DELETE")
-  .then((deletedPost) => console.log("Пост удалён", deletedPost))
-  .catch((err) => console.error("Ошибка удаления поста:", err));
+
+async function deletePostRequest(id) {
+  try {
+    const delatedPost = await apiRequest(`${requestURLPosts}${id}`, "DELETE");
+    console.log("Пост удалён");
+  } catch (error) {
+    console.error("Ошибка удаления поста:", error);
+  }
+}
+deletePostRequest(postIdString);
